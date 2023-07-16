@@ -1,0 +1,20 @@
+.ModalBack {
+    background: rgba(0, 0, 0, 0.692);
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+.ModalContent{
+    padding: 1em;
+    width: 50%;
+    min-width:300px;
+    background: #181818;
+}
+.ModalBack.active{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

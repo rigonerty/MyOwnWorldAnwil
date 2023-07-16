@@ -1,0 +1,19 @@
+.footer{
+    background: #111111;
+    padding: 50px 0;
+    width: 100%;
+}
+.footer, .footer div{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+footer div {
+    flex-direction: column;
+}
+.footer *{
+    color: white
+}
+.footer h2{
+    font-weight: 500;
+}

@@ -1,0 +1,19 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: white;
+}
+h1,h2,h3,h4,h5,h6{
+  font-weight: 400;
+  margin: .5em;
+}
+body{
+  background: #161616;
+}
+.DraftEditor-editorContainer,.public-DraftEditorPlaceholder-root{
+  padding: 1em;
+  min-height: 10em;
+  z-index: 1;
+}

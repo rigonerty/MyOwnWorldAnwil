@@ -1,0 +1,27 @@
+.ToolsCreateHeader{
+    display: flex;
+    width: 100%;
+    margin: 1em 0;
+}
+.CreatePreview{
+    display: flex;
+    justify-content: space-between;
+}
+.CreatePreview>.Preview{
+    padding: 1em;
+    max-width: 70%;
+}
+.CreatePreview>.PreviewSidebar{
+    width: 30%;
+    border: 1px solid white;
+}
+.CreatePreview > .Preview ul,
+.CreatePreview>.Preview ol{
+    padding-left: 2em;
+}
+.CreatePreview>.Preview img{
+    margin: 1em 0;
+}
+.ToolsCreateHeader >button{
+    margin: 1em 1em 0 0;
+}

@@ -1,0 +1,26 @@
+.dropdown{
+    display: none;
+    position: relative;
+}
+.dropdown .background{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 80;
+}
+.dropdown .content{
+    position: absolute;
+    top: 100%;
+    background: #111111;
+    z-index: 81;
+}
+.dropdown .content.side{
+    right: 100%;
+}
+.dropdown.active{
+    display: block;
+}

@@ -1,0 +1,18 @@
+.AddToolBar {
+    /* z-index: -1; */
+    display: flex;
+    position: sticky;
+    right: -1px;
+    top: 0;
+    width: 1px;
+    height: 100vh;
+}
+.AddToolBarContainer {
+    flex: 0 0 auto;
+    padding: 1em;
+    position: absolute;
+    right: -14.5vw;
+    width: 14.5vw;
+    height: 100%;
+    background: #0e0e0e;
+}

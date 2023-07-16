@@ -1,0 +1,13 @@
+.profilePage, .profilePageHeader{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.profilePage > .profilePageHeader > img{
+    display: block;
+    width: 13em;
+    height: 13em;
+    border-radius: 100%;
+}

@@ -1,0 +1,65 @@
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    background: #111111;
+    padding: 15px;
+    z-index: 8;
+}
+.navbar a, .navbar button{
+    color: white;
+    font-weight: 300;
+    text-decoration: none;
+    font-size: 1.1em;
+    display: block;
+    padding: 8px 18px;
+    background: transparent;
+    border: none;
+    margin: 0 5px;
+}
+.navbar a:hover,.navbar button:hover{
+    background: #222222;
+}
+.navbar>div{
+    display: flex;
+}
+.navbar hr{
+    border-color: #323232;
+}
+.arrow{
+    display: inline-block;
+    transform: rotate(90deg);
+}
+.navbar .dropdownContent{
+    padding: 8px 16px;
+}
+.dropdownContent h3{
+    color: white;
+    font-weight: 400;
+    margin-bottom: 10px;
+}
+
+.AuthNav>img{
+    display: block;
+    width: 39px;
+    height: 39px;
+    background: #323232;
+    border-radius: 100%;
+    cursor: pointer;
+}
+.AuthDropDownContent{
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.AuthDropDownContent>button{
+    background: #a11515;
+    margin: 10px 0;
+}
+.AuthDropDownContent a{
+    text-align: center;
+}
+.AuthDropDownContent>button:hover {
+    background: #ca0808;
+}
