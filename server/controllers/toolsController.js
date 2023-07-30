@@ -1,13 +1,14 @@
 
-
+import ArticleService from "../service/articleService.js";
 
 class toolsController{
-    async createArticle(req,res){
+    async createArticle(req,res,next){
         try{
-            console.log("ddd")
+            const {id, name,article} = req.body
+            const resData = await ArticleService.createArticle(id,name,article)
+            return res.json(resData)
         }catch(e){
-            console.log(e)
-            return res.status(400).json({message: "Ошибка при создании статьи."})
+            next(e)
         }
     }
 }

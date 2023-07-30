@@ -11,15 +11,28 @@ import TOKEN from "../config.js";
 class UserService{
     async register(body){
         const users = JSON.parse(fs.readFileSync(path.resolve(__dirname, "api/users/users.json")))
+
         const {username, password, email} = body
         const condidate = users.find(a=> a.username === username || a.email ===email)
+
         if(condidate){
             throw ApiError.BadRequest("Такое Имя или почта уже существует")
         }
+        const roles = JSON.parse(fs.readFileSync(path.resolve(__dirname, "api/users/roles.json")))
+        const articles = JSON.parse(fs.readFileSync(path.resolve(__dirname, "api/users/articles.json")))
+
         const hashPassword = bcrypt.hashSync(password,7)
-        const user = {username, password:hashPassword, id:Math.round(Math.random()*1000000000000), role: "User", email}
+        const id = Math.round(Math.random()*1000000000000)
+        const user = {username, password:hashPassword, id, role: "User", email}
+
         users.push(user)
+        roles.push({id, roles:[]})
+        articles.push({id,articles:[]})
+
         fs.writeFileSync(path.resolve(__dirname, "api/users/users.json"), JSON.stringify(users))
+        fs.writeFileSync(path.resolve(__dirname, "api/users/roles.json"), JSON.stringify(roles))
+        fs.writeFileSync(path.resolve(__dirname, "api/users/articles.json"), JSON.stringify(articles))
+
         const tokens = tokenService.generateTokens({id:user.id,role:user.role,email})
         await tokenService.saveToken(user.id, tokens.refreshToken)
         return {...tokens, user:{id:user.id,email:user.email,username:user.username}}
@@ -86,11 +99,74 @@ class UserService{
             if(!valid.search(/jpeg|png|jpg|webp/)){
                 return ApiError.BadRequest("Тип файла не поддерживается.")
             }
-            const image = img.replace("data:image/jpeg;base64,", "")
+            const format = valid.match(/jpeg|png|jpg|webp/)
+            const image = img.replace("data:image/"+format[0]+";base64,", "")
             fs.writeFileSync(path.resolve(__dirname, "api/imgs/"+id+".jpg"), image, "base64")            
         }
         fs.writeFileSync(path.resolve(__dirname, "api/users/users.json"), JSON.stringify(users))
         return {username, email, img}
+    }
+    async getUserById(id){
+        const users = JSON.parse(fs.readFileSync(path.resolve(__dirname, "api/users/users.json")))
+        const user = users.find(a=>a.id===id)
+        if(!user){
+            return ApiError.BadRequest("Такого пользователя не существует")
+        }
+        const getImage = await this.getImage(id)
+
+        return {username:user.username,email:user.email,id:user.id, img:getImage}
+    }
+    async sendRequestToUser(id,idTo){
+        const friends = JSON.parse(fs.readFileSync(path.resolve(__dirname, "api/users/friends.json")))
+        console.log(friends)
+        if(friends.length){
+            const condidate = friends.find(a=> a.sender == id, a.requestTo == idTo)
+            if(condidate){
+                return ApiError.BadRequest("Запрос уже был отправлен или принят.")
+            }            
+        }
+        friends.push({sender: id, requestTo:idTo, accept: false})
+        fs.writeFileSync(path.resolve(__dirname, "api/users/friends.json"), JSON.stringify(friends))
+        return {sender: id, requestTo:idTo, accept: false}
+    }
+    async getAllRequestsToUser(id){
+        const friends = JSON.parse(fs.readFileSync(path.resolve(__dirname, "api/users/friends.json")))
+        const result = friends.filter(a=> a.requestTo == id && a.accept == false)
+        const resultData = []
+        for(const friend of result){
+            const user = await this.getUserById(friend.sender)
+            resultData.push(user)
+        }
+        return resultData
+    }
+    async getAllFriendsToUser(id){
+        const friends = JSON.parse(fs.readFileSync(path.resolve(__dirname, "api/users/friends.json")))
+        const result = friends.filter(a=> (a.requestTo == id||a.sender == id) && a.accept == true)
+        const resultData = []
+        for(const friend of result){
+            let user;
+            if(id === friend.sender){
+                user = await this.getUserById(friend.requestTo)
+            }else{
+                user = await this.getUserById(friend.sender)
+            }
+            
+            resultData.push(user)
+        }
+        return resultData
+    }
+    async deleteRequestToUser(id,idTo){
+        const friends = JSON.parse(fs.readFileSync(path.resolve(__dirname, "api/users/friends.json")))
+        const FilteredRequest = friends.filter(a=> a.sender!==id&&a.requestTo!==idTo)
+        fs.writeFileSync(path.resolve(__dirname, "api/users/friends.json"), JSON.stringify(FilteredRequest))
+    }
+    async acceptRequestToUser(id,idTo){
+        const friends = JSON.parse(fs.readFileSync(path.resolve(__dirname, "api/users/friends.json")))
+        const neededRequest = friends.find(a=> a.sender ==id&&a.requestTo ==idTo)
+        console.log(neededRequest, id, idTo)
+        neededRequest.accept = true
+        fs.writeFileSync(path.resolve(__dirname, "api/users/friends.json"), JSON.stringify(friends))
+        return neededRequest
     }
 }
 

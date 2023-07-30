@@ -4,6 +4,6 @@ import toolsController from "../controllers/toolsController.js"
 
 const rout = new Router()
 
-rout.post("/createArticle", roleMiddleware("User"), toolsController.createArticle)
+rout.post("/createArticle",  toolsController.createArticle)
 
 export default rout

@@ -52,13 +52,6 @@ class authController{
             next(e)
         }
     }
-    async users(req,res,next){
-        try{
-
-        }catch(e){
-            next(e)
-        }
-    }
     async getImage(req,res,next){
     try{
         const data = await userService.getImage(req.query.id)
