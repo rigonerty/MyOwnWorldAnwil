@@ -1,0 +1,19 @@
+.FriendsView{
+    margin: 1em 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.FriendsView>img{
+    width: 5em;
+    height: 5em;
+    border-radius: 100%;
+}
+.FriendsViewUserInfo{
+    text-align: left;
+    flex: 0 0 auto;
+    width: 80%;
+}
+.FriendsViewUserInfo>h4{
+    color: rgb(136, 136, 136);
+}

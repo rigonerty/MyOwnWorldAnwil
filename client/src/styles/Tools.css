@@ -3,25 +3,44 @@
     width: 100%;
     margin: 1em 0;
 }
-.CreatePreview{
+.CreatePreview>div{
     display: flex;
     justify-content: space-between;
 }
-.CreatePreview>.Preview{
+.CreatePreview>div>.Preview{
     padding: 1em;
     max-width: 70%;
+    font-size: 1em;
 }
-.CreatePreview>.PreviewSidebar{
-    width: 30%;
+.CreatePreview>div>.PreviewSidebar{
+    max-width: 30%;
     border: 1px solid white;
 }
-.CreatePreview > .Preview ul,
-.CreatePreview>.Preview ol{
+.CreatePreview >div> .Preview ul,
+.CreatePreview>div>.Preview ol{
     padding-left: 2em;
 }
-.CreatePreview>.Preview img{
+.CreatePreview>div>.Preview img{
     margin: 1em 0;
 }
 .ToolsCreateHeader >button{
     margin: 1em 1em 0 0;
+}
+.ToolsCreateVisible{
+    display: block;
+}
+.ToolsCreateHidden{
+    display: none;
+}
+.FloatComponent{
+    float: right;
+    max-width: 40%;
+    white-space:pre-wrap;
+    word-wrap: break-word;
+    padding: 1em;
+    clear: right;
+}
+.FloatComponentImage {
+    float: right;
+    clear: right;
 }

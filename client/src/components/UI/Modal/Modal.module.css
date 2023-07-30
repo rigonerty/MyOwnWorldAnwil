@@ -8,6 +8,7 @@
     left: 0;
 }
 .ModalContent{
+    z-index: 99;
     padding: 1em;
     width: 50%;
     min-width:300px;

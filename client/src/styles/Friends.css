@@ -1,0 +1,21 @@
+.FriendsPageHeader>button{
+    margin-right: 1em;
+}
+.FriendsPageContent,.FriendsPageContentSearch{
+    text-align: center;
+    min-height: 70vh;
+}
+.FriendsPageContent h6{
+    color: rgba(41, 41, 41, 0.808);
+}
+.FriendsPageContentSearch >div:first-child{
+    display: flex;
+    align-items: center;
+}
+.FriendsPageContentSearch>div:first-child label{
+    flex: 0 0 auto;
+    width: 100%;
+}
+.FriendsPageContentSearch>div:first-child label>input{
+    margin: 0;
+}

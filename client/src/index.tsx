@@ -5,6 +5,7 @@ import './styles/index.css';
 import './styles/Home.css';
 import "./styles/Tools.css"
 import "./styles/Profile.css"
+import "./styles/Friends.css"
 import App from './App';
 import { Provider } from 'react-redux/es/exports';
 import store from './store';

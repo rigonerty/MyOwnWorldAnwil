@@ -23,8 +23,9 @@ export const Auth = () => {
           <Button onClick={logoutHandler}>Выйти</Button>
           <div>
             <Link to={"/user/settings"}>Настройки</Link>
-            <Link to={"/user"}>Профиль</Link>
+            <Link to={"/user/"+user.id}>Профиль</Link>
             <Link to={"/tools"}>Инструменты</Link>
+            <Link to={"/user/friends"}>Друзья</Link>
           </div>          
         </div>
       </Dropdown>

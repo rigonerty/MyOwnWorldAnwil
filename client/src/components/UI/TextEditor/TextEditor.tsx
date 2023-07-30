@@ -5,9 +5,9 @@ import cl from "./TextEditor.module.css"
 import { Button } from '../Button/Button';
 import { RichUtils } from 'draft-js';
 import { InlineBlock } from './InlineBlock';
-import { blockRendererFn, extendedBlockRenderMap } from './BlockRenderFunction';
+import { Media, Table, TableCell, extendedBlockRenderMap } from './BlockRenderFunction';
 import { DraftBlockType } from 'draft-js';
-
+import { AtomicBlockUtils } from 'draft-js';
 
 
 
@@ -23,7 +23,36 @@ export const onToggleBlockType = (blockType: any,  onChange:Function, editorStat
 
 export const TextEditor = ({editorState,setEditorState, setToggleFocus}:props) => {
   const [isUploadedImages,setUpladedImages] = useState<any>([]);
-
+  const blockRendererFn = (contentBlock:any) => {
+    const type = contentBlock.getType();
+    if (type === 'atomic') {
+      const content = editorState.getCurrentContent()
+      const entity = contentBlock.getEntityAt(0)
+      if(!entity) return null
+      const currentEntity = content.getEntity(entity)
+      if(currentEntity.getType() ==="IMAGE_FLOAT"){
+        return {
+          component: Media,
+          editable: true,
+          props:{
+            foo:"IMAGE_FLOAT"
+          }
+        };        
+      }
+      if(currentEntity.getType() ==="TABLE"){
+        return {
+          component: Table,
+          editable: false,
+        };        
+      }
+      if(currentEntity.getType() ==="TABLE_CELL"){
+        return {
+          component: TableCell,
+          editable: true,
+        };        
+      }
+    }
+  }
 
 
   function _uploadImageCallBack(file:any){
@@ -52,9 +81,8 @@ export const TextEditor = ({editorState,setEditorState, setToggleFocus}:props) =
             editorState={editorState} 
             placeholder="Введите ваш текст" 
             onEditorStateChange={(editorState:any)=> {setEditorState(editorState);setToggleFocus([editorState,setEditorState])}}
-            // blockRendererFn={blockRendererFn}
-            blockRenderMap={extendedBlockRenderMap}
-            />
+            blockRendererFn={blockRendererFn}
+            blockRenderMap={extendedBlockRenderMap}/>
       </div>
 
     </div>

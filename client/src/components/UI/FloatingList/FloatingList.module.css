@@ -1,0 +1,19 @@
+.FloatingList>.FloatingListVisible{
+    display: block;
+    background: #191919;
+}
+.FloatingList>div{
+    display: none;
+    padding: .6em;
+}
+.FloatingList>button{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.FloatingList span {
+    display: inline-block;
+    font-size: 1.4em;
+    transform: rotate(90deg);
+}

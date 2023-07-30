@@ -8,11 +8,16 @@
     height: 100vh;
 }
 .AddToolBarContainer {
+    overflow-y: auto;
+    max-height: 100%;
     flex: 0 0 auto;
-    padding: 1em;
+    padding: .3em;
     position: absolute;
-    right: -14.5vw;
-    width: 14.5vw;
+    right: -14.6vw;
+    width: 14.7vw;
     height: 100%;
     background: #0e0e0e;
+}
+.AddToolBarContainer::-webkit-scrollbar {
+    width: 0;
 }
