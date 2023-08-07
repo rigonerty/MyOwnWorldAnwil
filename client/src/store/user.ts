@@ -4,18 +4,20 @@ import axios from 'axios';
 import { createArticle, requestToAddFriend, responseToAddFriend, update } from '../models/User';
 import UserService from '../services/UserService';
 import { getUserByIdData } from './users';
+import ToolsService from '../services/ToolsService';
 
 
 
 
-interface User{
+export interface User{
     isAuth: boolean;
     username?:string;
     email?:string;
     id?:number|null;
     img?:string;
     friends?: getUserByIdData[]
-    requests?:getUserByIdData[]
+    requests?:getUserByIdData[],
+    roles?:[string[],string[]]
 }
 interface logAndReg{
     username:string;
@@ -56,6 +58,7 @@ export const userSlice = createSlice({
                 state.img = ""
                 state.friends = []
                 state.requests = []
+                state.roles = [[],[]]
             })
             .addCase(checkAuth.fulfilled, (state,action)=>{
                 if(action.payload){
@@ -152,6 +155,12 @@ export const userSlice = createSlice({
 
                 }
             })
+            .addCase(getRoles.fulfilled, (state,action)=>{
+                state.roles = action.payload.data.role
+            })
+            .addCase(updateRoles.fulfilled, (state,action)=>{
+                state.roles = action.payload.data.role
+            })
     },
 })
 
@@ -235,5 +244,16 @@ export const getAllRequestsToUser = createAsyncThunk("user/getAllRequestsToUser"
 export const getAllFriendsToUser = createAsyncThunk("user/getAllFriendsToUser", async(id:{id:number})=>{
     const res = await UserService.getAllFriendsToUser(id)
     return {data: res.data}
+})
+export const getRoles = createAsyncThunk("user/getRoles", async (id:{id:number})=>{
+    const res = await ToolsService.getRoles(id)
+    return {data: res.data}
+})
+export const updateRoles = createAsyncThunk("user/updateRoles", async (data:{id:number,roles:string[]})=>{
+    const res = await ToolsService.updateRoles(data)
+    return {data: res.data}
+})
+export const updateSomeRole = createAsyncThunk("user/updateSomeRole", async (data:{id:number,roles:string[]})=>{
+    await ToolsService.updateSomeRole(data)
 })
 export default userSlice.reducer

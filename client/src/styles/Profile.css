@@ -12,3 +12,35 @@
     height: 13em;
     border-radius: 100%;
 }
+.profilePage > .profilePageArticle{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.profilePageArticleLink{
+    margin: 1em 0;
+    width: 49%;
+    border: 1px solid white;
+    background: linear-gradient(to right,
+        rgba(255, 255, 255, 0),
+        rgba(255, 255, 255, 0),
+        rgba(255, 255, 255, 0),
+        rgba(255, 255, 255, 0),
+        rgba(255, 255, 255, 0),
+        rgba(255, 255, 255, 0),
+        rgba(255, 255, 255, 0),
+        rgba(255, 255, 255, 0),
+        rgba(107, 107, 107, 0.253),
+        rgba(107, 107, 107, 0.5));
+}
+
+.profilePageArticleLink>a{
+    white-space: nowrap;
+    text-decoration: none;
+    padding: 1em;
+    overflow: hidden;
+    font-size: 1.8em;
+    display: block;
+    width: 100%;
+}

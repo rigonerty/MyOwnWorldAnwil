@@ -1,7 +1,7 @@
 import React, {useEffect,useState} from 'react'
 import { appUseDispatch, appUseSelector } from '../../../../hooks/reduxHooks'
 import cl from "./../Navbar.module.css"
-import { getImage, logout } from '../../../../store/user'
+import { getImage, logout,getRoles } from '../../../../store/user'
 import { Dropdown } from '../../DropDown/Dropdown'
 import { Link } from 'react-router-dom'
 import { Button } from '../../Button/Button'
@@ -10,7 +10,10 @@ export const Auth = () => {
   const dispatch = appUseDispatch()
   const [isVisible, setVisible] = useState(false)
   useEffect(()=>{
-    if(user.id) dispatch(getImage(user?.id))
+    if(user.id) {
+      dispatch(getImage(user?.id))
+      dispatch(getRoles({id:user.id}))
+    }
   }, [ ])
   const logoutHandler = ()=>{
     dispatch(logout())

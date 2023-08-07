@@ -5,19 +5,21 @@ export const Tools = () => {
   return (
     <div className='toolsList'>
         <ButtonToCreate to='/tools/createPost'>
-            <i className='Post'></i>Article
+            <i className='Post'></i>Статья
         </ButtonToCreate>
         <ButtonToCreate to='/tools/createLanguage'>
-            <i className='Language'></i>Language
+            <i className='Language'></i>Язык
         </ButtonToCreate>
-        <ButtonToCreate to='/tools/createCharacter'>Character</ButtonToCreate>
-        <ButtonToCreate to='/tools/createBuilding'>Building</ButtonToCreate>
-        <ButtonToCreate to='/tools/createReligious'>Religious</ButtonToCreate>
-        <ButtonToCreate to='/tools/createCountry'>Country</ButtonToCreate>
-        <ButtonToCreate to='/tools/createMaterial'>Material</ButtonToCreate>
-        <ButtonToCreate to='/tools/createRace'>Race</ButtonToCreate>
-        <ButtonToCreate to='/tools/createBeasts'>Beast</ButtonToCreate>
-        <ButtonToCreate to='/tools/createOrganization'>Organization</ButtonToCreate>
+        <ButtonToCreate to='/tools/createCharacter'>
+          <i className='Character'></i>Персонаж
+        </ButtonToCreate>
+        <ButtonToCreate to='/tools/createBuilding'>Строение</ButtonToCreate>
+        <ButtonToCreate to='/tools/createReligious'>Религия</ButtonToCreate>
+        <ButtonToCreate to='/tools/createCountry'>Страна</ButtonToCreate>
+        <ButtonToCreate to='/tools/createMaterial'>Материал</ButtonToCreate>
+        <ButtonToCreate to='/tools/createRace'>Раса</ButtonToCreate>
+        <ButtonToCreate to='/tools/createBeasts'>Существо</ButtonToCreate>
+        <ButtonToCreate to='/tools/createOrganization'>Организация</ButtonToCreate>
     </div>
   )
 }

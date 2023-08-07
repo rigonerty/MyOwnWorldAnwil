@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { appUseDispatch, appUseSelector } from '../hooks/reduxHooks'
 import { Button } from './UI/Button/Button'
-import { acceptRequestToUser, deleteRequestToUser, getAllFriendsToUser, getAllRequestsToUser, sendRequestToUser } from '../store/user'
+import { acceptRequestToUser, deleteRequestToUser, getAllFriendsToUser, getAllRequestsToUser, sendRequestToUser, updateRoles, updateSomeRole } from '../store/user'
 import { FriendsView } from './UI/FriendView/FriendsView'
 import { Input } from './UI/Input/Input'
 import { getUserById, getUserByIdData } from '../store/users'
@@ -20,12 +20,14 @@ export const Friends = () => {
     const [isResultSearch, setResultSearch]= useState<getUserByIdData>()
     const [isInterval,setInterval] = useState(true)
     const dispatch = appUseDispatch()
+
     useEffect(()=>{
       if(user.id){
         dispatch(getAllRequestsToUser({id:user.id}))
         dispatch(getAllFriendsToUser({id:user.id}))
       }
     },[])
+
     useEffect(()=>{
       setTimeout(()=>{
         setInterval(!isInterval)
@@ -34,14 +36,17 @@ export const Friends = () => {
         dispatch(getAllRequestsToUser({id:user.id}))
       }
     },[isInterval])
+
     useEffect(()=>{
       if(users)setResultSearch(users.find(a=>a.id === +isValue))
     },[users])
-    const onClickHandler = (type:string,id:number|null)=>{
+    
+    const onClickHandler = (type:string,id:number|null, role?:string)=>{
       if(type==="add"&&user.id&&id) dispatch(acceptRequestToUser({id:id,idTo:user.id}))
       if(type==="refuse"&&user.id&&id) dispatch(deleteRequestToUser({id:user.id,idTo:id}))
       if(type==="delete"&&user.id&&id) dispatch(deleteRequestToUser({id:user.id,idTo:id}))
       if(type==="send"&&user.id&&id) dispatch(sendRequestToUser({id:user.id,idTo:id}))
+      if(type==="selectRole"&&id&&role) dispatch(updateSomeRole({id:id,roles:[role+" "+user?.id]}))
     }
   return (
     <div className='FriendsPage'>
@@ -53,7 +58,7 @@ export const Friends = () => {
       <div style={isVisible==="List"?{}:{display:"none"}} className='FriendsPageContent'>
         {friends && friends.length
           ? friends.map(friend=>{
-            return <FriendsView user={friend} onClickHandler={onClickHandler} type='friend'/>
+            return <FriendsView user={friend} onClickHandler={onClickHandler} type='friend' roles={user.roles}/>
           })
           :<><h2>У вас пока нет друзей.</h2><h6>лох</h6></>
         }

@@ -17,3 +17,11 @@
 .FriendsViewUserInfo>h4{
     color: rgb(136, 136, 136);
 }
+.FriendsViewSelectRole{
+    background: #111111;
+    cursor: pointer;
+    outline: none;
+    width: 8em;
+    text-align: center;
+    padding: .5em;
+}

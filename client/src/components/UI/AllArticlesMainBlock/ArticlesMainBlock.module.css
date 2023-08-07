@@ -1,0 +1,9 @@
+.SelectRole {
+    background: #111111;
+    cursor: pointer;
+    outline: none;
+    width: 8em;
+    text-align: center;
+    padding: .5em;
+    margin-top: 1em;
+}

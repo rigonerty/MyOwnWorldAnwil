@@ -1,17 +1,11 @@
 import { createSlice,createAsyncThunk, PayloadAction } from "@reduxjs/toolkit"
-
 import UserService from "../services/UserService"
-interface User{
-    username?:string;
-    email?:string;
-    id?:number|null;
-    img?:string
-}
 export interface getUserByIdData{
     username:string;
     email:string;
     id:number|null; 
-    img:string
+    img:string;
+    roles: [string[],string[]]
 }
 
 const initialState:getUserByIdData[] = []
@@ -28,7 +22,8 @@ export const usersSlice = createSlice({
                         username: action.payload.data.username,
                         email: action.payload.data.email,
                         id: action.payload.data.id,
-                        img: action.payload.data.img
+                        img: action.payload.data.img,
+                        roles: action.payload.data.roles
                     }
                     const neededUser = state.find(a=> a.id === user.id)
                     if(!neededUser){

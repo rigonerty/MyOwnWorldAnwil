@@ -1,3 +1,15 @@
+import { getUserByIdData } from "../store/users";
+
+export interface User{
+    isAuth: boolean;
+    username:string;
+    email:string;
+    id:number;
+    img:string;
+    friends: getUserByIdData[]
+    requests:getUserByIdData[],
+    roles:[string[],string[]]
+}
 export interface update{
     username: string;
     email: string;
@@ -9,7 +21,9 @@ export interface update{
 export interface createArticle{
     id:number|undefined|null;
     name:string;
-    article:{name:string;main:any;sidebar:any}[]
+    article:{name:string;main:any;sidebar:any}[];
+    roles: string[];
+    secrets: {roles:string[];name:string;main:any;sidebar:any}[]
 }
 export interface responseToAddFriend {
     sender: number,
