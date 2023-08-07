@@ -26,7 +26,7 @@ class UserService{
         const user = {username, password:hashPassword, id, role: "User", email}
 
         users.push(user)
-        roles.push({id, roles:[]})
+        roles.push({id, roles:[[],[]]})
         articles.push({id,articles:[]})
 
         fs.writeFileSync(path.resolve(__dirname, "api/users/users.json"), JSON.stringify(users))
@@ -108,13 +108,14 @@ class UserService{
     }
     async getUserById(id){
         const users = JSON.parse(fs.readFileSync(path.resolve(__dirname, "api/users/users.json")))
+        const usersRoles = JSON.parse(fs.readFileSync(path.resolve(__dirname, "api/users/roles.json")))
         const user = users.find(a=>a.id===id)
-        if(!user){
+        const userRoles = usersRoles.find(a=>a.id===id)
+        if(!user&&userRoles){
             return ApiError.BadRequest("Такого пользователя не существует")
         }
         const getImage = await this.getImage(id)
-
-        return {username:user.username,email:user.email,id:user.id, img:getImage}
+        return {username:user.username,email:user.email,id:user.id, img:getImage,roles:userRoles.roles}
     }
     async sendRequestToUser(id,idTo){
         const friends = JSON.parse(fs.readFileSync(path.resolve(__dirname, "api/users/friends.json")))
