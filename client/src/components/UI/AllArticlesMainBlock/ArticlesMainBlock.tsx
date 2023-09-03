@@ -7,11 +7,14 @@ import { Input } from '../Input/Input'
 import { convertToRaw } from 'draft-js'
 import { appUseSelector } from '../../../hooks/reduxHooks'
 import cl from "./ArticlesMainBlock.module.css"
+import { Article } from '../../../models/Tools'
+import { convertFromRaw } from 'draft-js'
 interface props{
   index: number,
   updateHTML:({index,main,sidebar}:updateHTML)=> void,
   setToggleFocus: ([editorState, setEditorState]: any) => void;
-  type?:string
+  type?:string;
+  value?:{roles?:string[],name:string;main:any;sidebar:any}
 }
 export interface updateHTML{
   index:number,
@@ -20,12 +23,12 @@ export interface updateHTML{
   jsonMain: any,
   jsonSidebar: any,
   name:string;
-  roles?: string[]
+  roles?: string[];
 }
-export const ArticlesMainBlock = ({index,updateHTML,setToggleFocus,type}:props) => {
-  const [isBlockName, setBlockName] = useState("")
-  const [isMain, setMain] = useState(EditorState.createEmpty())
-  const [isSideBar, setSideBar] = useState(EditorState.createEmpty())
+export const ArticlesMainBlock = ({index,updateHTML,setToggleFocus,type, value}:props) => {
+  const [isBlockName, setBlockName] = useState(value?value.name:"")
+  const [isMain, setMain] = useState(value?EditorState.createWithContent(convertFromRaw(value.main)):EditorState.createEmpty())
+  const [isSideBar, setSideBar] = useState(value?EditorState.createWithContent(convertFromRaw(value.sidebar)):EditorState.createEmpty())
   const [isSecretValue, setSecretValue] = useState<string[]>([])
   const roles = appUseSelector(state=> state.user.roles)
   useEffect(()=>{
@@ -60,7 +63,14 @@ export const ArticlesMainBlock = ({index,updateHTML,setToggleFocus,type}:props) 
     }
   }
   useEffect(()=>{
-      if(roles) setSecretValue(roles[0])
+      if(value&&value.roles){
+        const roles = []
+        for(const Role of value.roles){
+          roles.push(Role.split(" ")[0])
+        }
+        setSecretValue(roles)
+      }
+      else if(roles) setSecretValue(roles[0])
   },[])
   return (
     <>
@@ -70,13 +80,16 @@ export const ArticlesMainBlock = ({index,updateHTML,setToggleFocus,type}:props) 
           <select onChange={(e)=> Secrets(e.target.value)} className={cl.SelectRole}>
             {roles&&
               roles[0].map(a=>{
+                if(value&& value.roles&&a===value.roles[0].split(" ")[0]){
+                  return <option value={a} selected>{a}</option>
+                }
                 return <option value={a}>{a}</option>
               })
             }
           </select>
         </>
       }
-      <Input name='Название Блока' value={isBlockName} setValue={setBlockName} placeholder='Введите название блока' max={40}/>
+      <Input name='Название Блока' value={isBlockName} setValue={setBlockName} placeholder='Введите название блока' max={100}/>
       <h2>Основная часть</h2>
       <TextEditor editorState={isMain} setEditorState={setMain} setToggleFocus={setToggleFocus}/>         
       <h2>Сайдбар</h2>

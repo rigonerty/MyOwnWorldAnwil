@@ -17,8 +17,6 @@ export const ArticleItem = ({article,userRoles,creatorId}:props) => {
     useEffect(()=>{
       let mainAccess = false;
       for(const userRole of userRoles){
-        console.log(userRole)
-        console.log(article.roles)
         if(article.roles.find(a=>a.includes(userRole))){
           mainAccess = true
         }

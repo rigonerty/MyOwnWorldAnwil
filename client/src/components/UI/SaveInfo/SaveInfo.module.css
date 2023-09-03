@@ -1,0 +1,28 @@
+.SaveInfo{
+    display: flex;
+    background: #0f0f0fea;
+    position: fixed;
+    right: 1vw;
+    border-radius: .5em;
+    overflow: hidden;
+    transition: .5s;
+    transition-timing-function: linear;
+    top: 2vw;
+    right: -25%;
+    width: 20vw;
+    z-index: 100;
+}
+.SaveInfo.Active{ 
+    right: 1vw;
+}
+.SaveInfo>p{
+    color: #45ff20;
+    padding: 2em 1em; 
+    text-align: center;   
+}
+.SaveInfo>div{
+    flex: 0 0 auto;
+    background: #137000;
+    width: 15%;
+    height: inherit;
+}

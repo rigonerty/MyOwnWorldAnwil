@@ -18,18 +18,19 @@ export const ProfileItem = ({user,articles}:props) => {
         <div>
             <h2>Email: {user.email}</h2>
         </div>
+        <h2><Link to="maps">Карты</Link></h2>
         <div className='profilePageArticle'>
-            {articles
+            {articles && articles.articles.length
                 ?<>
                     {articles.articles.map(a=>{
                         return(
-                            <div className='profilePageArticleLink'>
+                            <div className='profilePageArticleLink' key={a.id}>
                                 <Link to={"article/"+a.id}>{a.name}</Link>
                             </div>
                         )
                     })}
                 </>
-                :<h2>Посты отсутствуют.</h2>
+                :<h2 style={{textAlign:"center",width:"100%"}}>Посты отсутствуют.</h2>
             }
         </div>
     </div>

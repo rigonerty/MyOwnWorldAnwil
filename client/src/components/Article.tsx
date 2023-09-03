@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { appUseDispatch, appUseSelector } from '../hooks/reduxHooks'
 import { getArticle } from '../store/articles'
 import { ArticleItem } from './ArticleItem'
@@ -18,7 +18,10 @@ export const Article = () => {
   return (
     <div>
         {article && user.roles
-            ?<ArticleItem article={article} userRoles={user.id==userId?user.roles[0]:user.roles[1]} creatorId={userId?+userId:0}/>
+            ?<>
+                {user.id==userId?<Link to={"/tools/updateArticle/"+article.id} className='updateArticleLink'>⚙</Link>:<></>}
+                <ArticleItem article={article} userRoles={user.id==userId?user.roles[0]:user.roles[1]} creatorId={userId?+userId:0}/>
+            </>
             :<h1>Поста не существует</h1>
         }
     </div>

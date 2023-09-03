@@ -6,7 +6,7 @@ interface Props{
     setVisible: Function,
     children: React.ReactNode
 }
-export const Dropdown= ({side,children,visible,setVisible}:Props) => {
+export const Dropdown = ({side,children,visible,setVisible}:Props) => {
     const clx = [cl.dropdown]
     if(visible){
         clx.push(cl.active)

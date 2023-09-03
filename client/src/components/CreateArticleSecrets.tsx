@@ -5,13 +5,15 @@ interface props{
     isCurrent:string;
     updateHTML:(data:updateHTML)=>void;
     setToggleFocus:(data:any)=>void;
+    value?:{roles:string[],name:string,main:any,sidebar:any}[]
 }
-export const CreateArticleSecrets = ({isCurrent,setToggleFocus,updateHTML}:props) => {
-    const [isCountOfEditors,setCountOfEditors] = useState(1)
+export const CreateArticleSecrets = ({isCurrent,setToggleFocus,updateHTML,value}:props) => {
+    const [isCountOfEditors,setCountOfEditors] = useState(value?value.length:1)
     const AllArticleBlocks = ()=>{
         const arr = []
         for(let i=0; i <isCountOfEditors; i++){
-            arr.push(<ArticlesMainBlock index={i} setToggleFocus={setToggleFocus} updateHTML={updateHTML} key={i} type='secret'/>)
+            arr.push(<ArticlesMainBlock index={i} setToggleFocus={setToggleFocus} updateHTML={updateHTML} key={i} type='secret' value={value?value[i]:undefined}/>)
+
         }
         return arr
     }

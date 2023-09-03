@@ -29,6 +29,7 @@ export const Auth = () => {
             <Link to={"/user/"+user.id}>Профиль</Link>
             <Link to={"/tools"}>Инструменты</Link>
             <Link to={"/user/friends"}>Друзья</Link>
+            <Link to={`/user/${user.id}/maps`}>Карты</Link>
           </div>          
         </div>
       </Dropdown>

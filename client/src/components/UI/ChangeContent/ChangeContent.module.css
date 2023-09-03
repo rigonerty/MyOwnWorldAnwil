@@ -1,0 +1,13 @@
+.ChangeContentHeader{
+    display: flex;
+    padding: 1em;
+}
+.ChangeContentHeader>button{
+    margin: 1em;
+}
+.ChangeContentVisible{
+    display: block;
+}
+.ChangeContentUnVisible{
+    display: none;
+}

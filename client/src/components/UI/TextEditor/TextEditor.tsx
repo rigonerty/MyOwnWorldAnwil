@@ -14,7 +14,7 @@ import { AtomicBlockUtils } from 'draft-js';
 interface props{
   editorState: any /*EditorState*/;
   setEditorState: (something:any)=>void;
-  setToggleFocus: ([editorState, setEditorState]:any)=>void
+  setToggleFocus?: ([editorState, setEditorState]:any)=>void
 }
 
 export const onToggleBlockType = (blockType: any,  onChange:Function, editorState:any)=> {
@@ -80,7 +80,7 @@ export const TextEditor = ({editorState,setEditorState, setToggleFocus}:props) =
             editorClassName= {cl.TextEditorMain}
             editorState={editorState} 
             placeholder="Введите ваш текст" 
-            onEditorStateChange={(editorState:any)=> {setEditorState(editorState);setToggleFocus([editorState,setEditorState])}}
+            onEditorStateChange={(editorState:any)=> {setEditorState(editorState);if(setToggleFocus)setToggleFocus([editorState,setEditorState])}}
             blockRendererFn={blockRendererFn}
             blockRenderMap={extendedBlockRenderMap}/>
       </div>

@@ -20,6 +20,9 @@ export const Tools = () => {
         <ButtonToCreate to='/tools/createRace'>Раса</ButtonToCreate>
         <ButtonToCreate to='/tools/createBeasts'>Существо</ButtonToCreate>
         <ButtonToCreate to='/tools/createOrganization'>Организация</ButtonToCreate>
+        <ButtonToCreate to='/tools/map'>
+          <i className='Map'></i>Карта
+        </ButtonToCreate>
     </div>
   )
 }
