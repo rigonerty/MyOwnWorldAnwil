@@ -1,9 +1,12 @@
 import { AxiosResponse } from "axios";
 import $api from "../http";
-import { getArticleById, getArticlesById, roles } from "../models/Tools";
+import { getArticleById, getArticlesById, roles, updateArticle } from "../models/Tools";
 export default class ToolsService{
     static async getArticle(data:{idUser:number,idArticle:number}):Promise<AxiosResponse<getArticleById>>{
         return $api.post<getArticleById>("/tools/getArticle", data)
+    }
+    static async updateArticle(data:updateArticle):Promise<AxiosResponse<updateArticle>>{
+        return $api.post<updateArticle>("tools/updateArticle",data)
     }
     static async getAllArticles(data:{id:number}):Promise<AxiosResponse<getArticlesById>>{
         return $api.post<getArticlesById>("/tools/getAllArticles", data)

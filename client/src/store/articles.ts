@@ -5,7 +5,7 @@ import { createArticle, requestToAddFriend, responseToAddFriend, update } from '
 import UserService from '../services/UserService';
 import { getUserByIdData } from './users';
 import ToolsService from '../services/ToolsService';
-import { getArticlesById } from '../models/Tools';
+import { getArticlesById, updateArticle } from '../models/Tools';
 
 
 
@@ -52,11 +52,33 @@ export const articlesSlice = createSlice({
                     state.push({id:action.payload.data.id, articles:[...action.payload.data.articles]})
                 }
             })
+            .addCase(UpdateArticle.fulfilled, (state, action)=>{
+                const data = action.payload.data
+                const neededUser = state.find(a=>a.id === data.id)
+                if(neededUser){
+                    const neededArticle = neededUser.articles.find(a=>a.id===data.idArticle)
+                    if(neededArticle){
+                        neededArticle.name = data.name
+                        neededArticle.article = data.article
+                        neededArticle.secrets = data.secrets
+                        neededArticle.roles = data.roles
+                    }else{
+                        neededUser.articles.push({id:data.idArticle,name:data.name,article:data.article,roles:data.roles,secrets:data.secrets})
+                    }
+                    
+                }else{
+                    state.push({id:data.id, articles:[{id:data.idArticle,name:data.name,article:data.article,roles:data.roles,secrets:data.secrets}]})
+                }
+            })
     },
 })
 
 export const getArticle = createAsyncThunk("articles/getArticle", async (data:{idUser:number,idArticle:number})=>{
     const resData = await ToolsService.getArticle(data)
+    return {data:resData.data}
+})
+export const UpdateArticle = createAsyncThunk("articles/updateArticle", async (data:updateArticle)=>{
+    const resData = await ToolsService.updateArticle(data)
     return {data:resData.data}
 })
 export const getArticles = createAsyncThunk("articles/getArticles", async (id:{id:number})=>{
