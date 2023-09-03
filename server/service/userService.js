@@ -20,19 +20,23 @@ class UserService{
         }
         const roles = JSON.parse(fs.readFileSync(path.resolve(__dirname, "api/users/roles.json")))
         const articles = JSON.parse(fs.readFileSync(path.resolve(__dirname, "api/users/articles.json")))
+        const maps = JSON.parse(fs.readFileSync(path.resolve(__dirname, "api/users/map.json")))
 
         const hashPassword = bcrypt.hashSync(password,7)
         const id = Math.round(Math.random()*1000000000000)
         const user = {username, password:hashPassword, id, role: "User", email}
 
         users.push(user)
-        roles.push({id, roles:[[],[]]})
+        roles.push({id, roles:[["Крестьянин","Купец","Боярин","Князь"],[]]})
         articles.push({id,articles:[]})
+        maps.push({id,maps:[]})
+
 
         fs.writeFileSync(path.resolve(__dirname, "api/users/users.json"), JSON.stringify(users))
         fs.writeFileSync(path.resolve(__dirname, "api/users/roles.json"), JSON.stringify(roles))
         fs.writeFileSync(path.resolve(__dirname, "api/users/articles.json"), JSON.stringify(articles))
-
+        fs.writeFileSync(path.resolve(__dirname, "api/users/map.json"), JSON.stringify(maps))
+        
         const tokens = tokenService.generateTokens({id:user.id,role:user.role,email})
         await tokenService.saveToken(user.id, tokens.refreshToken)
         return {...tokens, user:{id:user.id,email:user.email,username:user.username}}

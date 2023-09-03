@@ -11,6 +11,15 @@ class toolsController{
             next(e)
         }
     }
+    async updateArticle(req,res,next){
+        try{
+            const{id, name,article, roles, secrets,idArticle} = req.body
+            const resData =await ArticleService.updateArticle(id, name,article, roles, secrets,idArticle)
+            res.json(resData)
+        }catch(e){
+            next(e)
+        }
+    }
     async getArticle(req,res,next){
         try{
             const {idUser,idArticle} = req.body
