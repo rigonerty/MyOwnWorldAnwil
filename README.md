@@ -16,3 +16,10 @@
   <li>Позволить редактировать статьи с помощью css.</li>
   <li>Адаптивная верстка.</li>
 </ul>
+<h2>Скриншоты</h2>
+<img src="https://github.com/rigonerty/MyOwnWorldAnvil/blob/main/screenshots/Article.jpg"/>
+<img src="https://github.com/rigonerty/MyOwnWorldAnvil/blob/main/screenshots/Home.jpg"/>
+<img src="https://github.com/rigonerty/MyOwnWorldAnvil/blob/main/screenshots/Map.jpg"/>
+<img src="https://github.com/rigonerty/MyOwnWorldAnvil/blob/main/screenshots/Profile.jpg"/>
+<img src="https://github.com/rigonerty/MyOwnWorldAnvil/blob/main/screenshots/Settings.jpg"/>
+<img src="https://github.com/rigonerty/MyOwnWorldAnvil/blob/main/screenshots/Tools.jpg"/>
